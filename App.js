@@ -4,6 +4,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { TailwindProvider, useTailwind } from "tailwind-rn/dist";
 import EntryScreen from "./screens/entry-screen";
 
+import Navigator from "./navigator";
+
 import utiilities from "./tailwind.json";
 
 export default function App() {
