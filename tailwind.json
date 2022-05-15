@@ -1,4 +1,9 @@
 {
+	"absolute": {
+		"style": {
+			"position": "absolute"
+		}
+	},
 	"relative": {
 		"style": {
 			"position": "relative"

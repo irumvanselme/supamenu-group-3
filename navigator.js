@@ -44,6 +44,18 @@ function AppNavigator() {
             initialRouteName="Search"
             screenOptions={{
                 headerShown: false,
+                tabBarStyle: {
+                    backgroundColor: "white",
+                    height: 100,
+                    borderTopLeftRadius: 30,
+                    borderTopRightRadius: 30,
+                    marginHorizontal: 5,
+                    position: "absolute",
+                    elevation: 0,
+                },
+                tabBarItemStyle: {
+                    paddingBottom: 10,
+                },
             }}
         >
             <Tabs.Screen name="Cart" component={CartScreen} />
