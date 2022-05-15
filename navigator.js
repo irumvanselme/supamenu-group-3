@@ -61,7 +61,11 @@ function AppNavigator() {
             <Tabs.Screen name="Cart" component={CartScreen} />
             <Tabs.Screen name="Checkout" component={CheckoutScreen} />
             <Tabs.Screen name="OrderSuccess" component={OrderSuccessScreen} />
-            <Tabs.Screen name="Rate" component={RateScreen} />
+            <Tabs.Screen name="Rate" component={RateScreen} 
+                screenOptions={{
+                    headerShown: false,
+                }}
+            />
             <Tabs.Screen name="Search" component={SearchResultScreen} />
             <Tabs.Screen name="SearchResults" component={SearchResultScreen} />
             <Tabs.Screen name="ShowMenu" component={ShowMenuScreen} />

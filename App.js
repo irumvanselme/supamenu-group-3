@@ -11,8 +11,6 @@ import utiilities from "./tailwind.json";
 export default function App() {
     const tailwind = useTailwind();
 
-    console.log(tailwind("bg-red-500"));
-
     return (
         <NavigationContainer>
             <TailwindProvider utilities={utiilities}>
