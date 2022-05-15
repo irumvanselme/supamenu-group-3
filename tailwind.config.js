@@ -1,5 +1,10 @@
 module.exports = {
-  content: [],
+  mode: "jit",
+  content: [
+    "./screens/*",
+    "./components/**",
+    "./layouts/**",
+  ],
   theme: {
     extend: {},
   },
