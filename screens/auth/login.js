@@ -12,6 +12,8 @@ export default function LoginScreen() {
                 style={styles.image}
                 source={require("./../../assets/logo.png")}
               />
+              <Text style={styles.welcomeText}>Welcome ...</Text>
+              <Text style={styles.signIntext}>Sign in to continue </Text>
             </View>
             {/* <ScrollView> */}
             <View style={styles.loginForm}>
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   loginForm: {
-    marginTop: 20,
+    marginTop: 6,
     justifyContent: "flex-end",
   },
 });

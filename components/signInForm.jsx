@@ -8,24 +8,19 @@ export function SignInForm(props) {
   const { navigation } = props;
   return (
     <View style={styles.container}>
-      <Text style={styles.welcomeText}>Welcome ...</Text>
-      <Text style={styles.signIntext}>Sign in to continue </Text>
       <View style={styles.inputStyle}>
         <EvilIcons name="envelope" size={24} color="gray" />
         <TextInput placeholder="Your Email" />
       </View>
-
       <View style={styles.inputStyle}>
         <AntDesign name="lock" size={24} color="gray" />
         <TextInput placeholder="Password" />
       </View>
-
       <View style={styles.submitButton}>
         <Pressable style={styles.button}>
           <Text style={styles.cap}>Sign In</Text>
         </Pressable>
       </View>
-
       <View style={styles.optionalView}>
         <View style={styles.leftOption}></View>
         <Text style={styles.optionalText}>OR</Text>
@@ -39,10 +34,10 @@ export function SignInForm(props) {
         <FontAwesome name="facebook" size={24} color="black" />
         <Text style={styles.fCap}>Login with facebook</Text>
       </View>
+
       <View style={styles.fgtPass}>
         <Text style={styles.fgtPassText}>Forgot Password</Text>
       </View>
-
       {/* <Pressable onPress={() => navigation.navigate("Register")}> */}
       <View style={styles.bottomContent}>
         <Text style={styles.bottomText}>Don't have an account?</Text>
@@ -82,7 +77,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   submitButton: {
-    marginTop: 40,
+    marginTop: 20,
   },
 
   button: {
@@ -101,7 +96,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   optionalView: {
-    marginTop: 20,
+    marginTop: 10,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -136,7 +131,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 20,
+    marginBottom: 8,
   },
   bottomText: {
     fontSize: 16,
@@ -151,7 +146,7 @@ const styles = StyleSheet.create({
   gButton: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 10,
     alignItems: "center",
     padding: 15,
     width: 327,
@@ -165,7 +160,7 @@ const styles = StyleSheet.create({
   fbButton: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 10,
     alignItems: "center",
     padding: 15,
     width: 327,
