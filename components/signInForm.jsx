@@ -35,7 +35,15 @@ export function SignInForm(props) {
       </View>
       <View style={styles.fbButton}>
         <FontAwesome name="facebook" size={24} color="black" />
-        <Text style={styles.fap}>Login with facebook</Text>
+        <Text style={styles.fCap}>Login with facebook</Text>
+      </View>
+      <View style={styles.fgtPass}>
+        <Text style={styles.fgtPassText}>Forgot Password</Text>
+      </View>
+
+      <View style={styles.bottomContent}>
+        <Text style={styles.bottomText}>Don't have an account?</Text>
+        <Text style={styles.bottomTextTwo}>Register</Text>
       </View>
     </View>
   );
@@ -110,11 +118,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   bottomContent: {
-    marginTop: 20,
+    marginTop: 10,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    marginBottom: 20,
   },
   bottomText: {
     fontSize: 16,
@@ -153,9 +162,18 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   gCap: {
+    marginLeft: 10,
     color: "gray",
   },
-  bCap: {
+  fCap: {
+    marginLeft: 10,
     color: "gray",
+  },
+  fgtPass: {
+    marginTop: 10,
+  },
+  fgtPassText: {
+    fontSize: 16,
+    color: "#F7941D",
   },
 });

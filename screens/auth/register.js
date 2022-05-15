@@ -2,25 +2,27 @@ import { StyleSheet, View, Image, Text, ScrollView } from "react-native";
 import { SignUpForm } from "../../components/signUpForm";
 export default function RegisterScreen() {
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.contentView}>
-          <View style={styles.introView}>
-            <Image
-              style={styles.image}
-              source={require("./../../assets/logo.png")}
-            />
-            <Text style={styles.welcomeText}>Welcome ...</Text>
-            <Text style={styles.signIntext}>
-              Please fill in the information
-            </Text>
-          </View>
-          <View style={styles.loginForm}>
-            <SignUpForm />
+    <SafeAreaView>
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.contentView}>
+            <View style={styles.introView}>
+              <Image
+                style={styles.image}
+                source={require("./../../assets/logo.png")}
+              />
+              <Text style={styles.welcomeText}>Welcome ...</Text>
+              <Text style={styles.signIntext}>
+                Please fill in the information
+              </Text>
+            </View>
+            <View style={styles.loginForm}>
+              <SignUpForm />
+            </View>
           </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -32,6 +34,8 @@ const styles = StyleSheet.create({
   contentView: {
     marginTop: 100,
     backgroundColor: "#fff",
+    width: "100%",
+    height: "100%",
     flex: 1,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
