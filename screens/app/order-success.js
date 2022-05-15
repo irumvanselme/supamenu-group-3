@@ -13,7 +13,7 @@ export default function OrderSuccessScreen() {
                 We will send order details and invoice in your contact no and 
                 redistered email.
             </Text>
-            <Text style={styles.text}>Check Details dajkdanj</Text>
+            <Text style={styles.text}>Check Details</Text>
             <AntDesign name="arrowright" size={24} color="white" />
             <Button
             onPress={onDownloadInvoice}
