@@ -13,62 +13,61 @@ import RegisterScreen from "./screens/auth/register";
 import SplashScreen from "./screens/auth/splash";
 
 export default function Navigator() {
-    const isLoggedIn = true;
+  const isLoggedIn = false;
 
-    if (isLoggedIn) return <AppNavigator />;
-    else return <AuthNavigator />;
+  if (isLoggedIn) return <AppNavigator />;
+  else return <AuthNavigator />;
 }
 
 function AuthNavigator() {
-    const Stack = createStackNavigator();
+  const Stack = createStackNavigator();
 
-    return (
-        <Stack.Navigator
-            initialRouteName="Login"
-            screenOptions={{
-                headerShown: false,
-            }}
-        >
-            <Stack.Screen name="Splash" component={SplashScreen} />
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Register" component={RegisterScreen} />
-        </Stack.Navigator>
-    );
+  return (
+    <Stack.Navigator initialRouteName="Register">
+      <Stack.Screen name="Splash" component={SplashScreen} />
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
 }
 
 function AppNavigator() {
-    const Tabs = createBottomTabNavigator();
+  const Tabs = createBottomTabNavigator();
 
-    return (
-        <Tabs.Navigator
-            initialRouteName="Search"
-            screenOptions={{
-                headerShown: false,
-                tabBarStyle: {
-                    backgroundColor: "white",
-                    height: 100,
-                    borderTopLeftRadius: 30,
-                    borderTopRightRadius: 30,
-                    marginHorizontal: 5,
-                    position: "absolute",
-                    elevation: 0,
-                },
-                tabBarItemStyle: {
-                    paddingBottom: 10,
-                },
-            }}
-        >
-            <Tabs.Screen name="Cart" component={CartScreen} />
-            <Tabs.Screen name="Checkout" component={CheckoutScreen} />
-            <Tabs.Screen name="OrderSuccess" component={OrderSuccessScreen} />
-            <Tabs.Screen name="Rate" component={RateScreen} 
-                screenOptions={{
-                    headerShown: false,
-                }}
-            />
-            <Tabs.Screen name="Search" component={SearchResultScreen} />
-            <Tabs.Screen name="SearchResults" component={SearchResultScreen} />
-            <Tabs.Screen name="ShowMenu" component={ShowMenuScreen} />
-        </Tabs.Navigator>
-    );
+  return (
+    <Tabs.Navigator
+      initialRouteName="Search"
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: "white",
+          height: 100,
+          borderTopLeftRadius: 30,
+          borderTopRightRadius: 30,
+          marginHorizontal: 5,
+          position: "absolute",
+          elevation: 0,
+        },
+        tabBarItemStyle: {
+          paddingBottom: 10,
+        },
+      }}
+    >
+      <Tabs.Screen name="Cart" component={CartScreen} />
+      <Tabs.Screen name="Checkout" component={CheckoutScreen} />
+      <Tabs.Screen name="OrderSuccess" component={OrderSuccessScreen} />
+      <Tabs.Screen name="Rate" component={RateScreen} />
+      <Tabs.Screen name="Search" component={SearchResultScreen} />
+      <Tabs.Screen name="SearchResults" component={SearchResultScreen} />
+      <Tabs.Screen name="ShowMenu" component={ShowMenuScreen} />
+    </Tabs.Navigator>
+  );
 }
