@@ -1,12 +1,18 @@
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+
+import { View, Text, TouchableOpacity } from "react-native";
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import { View, Text } from "react-native";
-import CartScreen from "./screens/app/cart";
-import CheckoutScreen from "./screens/app/checkout";
-import OrderSuccessScreen from "./screens/app/order-success";
-import RateScreen from "./screens/app/rate";
+import {
+    CartNavigator,
+    ClockScreen,
+    HomeScreen,
+    NotificationScreen,
+    ScanScreen,
+} from "./screens/app";
+
 import SearchResultScreen from "./screens/app/search-result";
-import ShowMenuScreen from "./screens/app/show-menu";
 
 import LoginScreen from "./screens/auth/login";
 import RegisterScreen from "./screens/auth/register";
@@ -44,27 +50,102 @@ function AppNavigator() {
             initialRouteName="Search"
             screenOptions={{
                 headerShown: false,
+                tabBarInactiveTintColor: "black",
                 tabBarStyle: {
                     backgroundColor: "white",
-                    height: 100,
+                    height: 80,
+                    paddingBottom: 10,
+                    padding: 30,
                     borderTopLeftRadius: 30,
                     borderTopRightRadius: 30,
                     marginHorizontal: 5,
                     position: "absolute",
                     elevation: 0,
                 },
-                tabBarItemStyle: {
-                    paddingBottom: 10,
+                tabBarButton: (props) => {
+                    return (
+                        <View {...props}>
+                            <View
+                                style={{
+                                    minWidth: 50,
+                                    minHeight: 50,
+                                    borderRadius: 10,
+                                    backgroundColor: props.accessibilityState
+                                        .selected
+                                        ? "#F6E3DB"
+                                        : "white",
+                                }}
+                            >
+                                <TouchableOpacity {...props} />
+                            </View>
+                        </View>
+                    );
                 },
+                tabBarShowLabel: false,
+                tabBarActiveTintColor: "#F7941D",
             }}
         >
-            <Tabs.Screen name="Cart" component={CartScreen} />
-            <Tabs.Screen name="Checkout" component={CheckoutScreen} />
-            <Tabs.Screen name="OrderSuccess" component={OrderSuccessScreen} />
-            <Tabs.Screen name="Rate" component={RateScreen} />
-            <Tabs.Screen name="Search" component={SearchResultScreen} />
-            <Tabs.Screen name="SearchResults" component={SearchResultScreen} />
-            <Tabs.Screen name="ShowMenu" component={ShowMenuScreen} />
+            <Tabs.Screen
+                name="Home"
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <AntDesign name="home" size={24} color={color} />
+                    ),
+                }}
+                component={HomeScreen}
+            />
+            <Tabs.Screen
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons
+                            name="bell-badge-outline"
+                            size={24}
+                            color={color}
+                        />
+                    ),
+                }}
+                name="Notification"
+                component={NotificationScreen}
+            />
+            <Tabs.Screen
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons
+                            name="line-scan"
+                            size={24}
+                            color={color}
+                        />
+                    ),
+                }}
+                name="Scan"
+                component={ScanScreen}
+            />
+            <Tabs.Screen
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons
+                            name="progress-clock"
+                            size={24}
+                            color={color}
+                        />
+                    ),
+                }}
+                name="Clock"
+                component={ClockScreen}
+            />
+            <Tabs.Screen
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <AntDesign
+                            name="shoppingcart"
+                            size={24}
+                            color={color}
+                        />
+                    ),
+                }}
+                name="Cart"
+                component={CartNavigator}
+            />
         </Tabs.Navigator>
     );
 }
