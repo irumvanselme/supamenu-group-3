@@ -12,12 +12,12 @@ export default function LoginScreen() {
                 style={styles.image}
                 source={require("./../../assets/logo.png")}
               />
-              <Text style={styles.welcomeText}>Welcome ...</Text>
-              <Text style={styles.signIntext}>Sign in to continue </Text>
             </View>
+            {/* <ScrollView> */}
             <View style={styles.loginForm}>
               <SignInForm />
             </View>
+            {/* </ScrollView> */}
           </View>
         </View>
       </ScrollView>

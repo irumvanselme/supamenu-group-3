@@ -8,6 +8,8 @@ export function SignInForm(props) {
   const { navigation } = props;
   return (
     <View style={styles.container}>
+      <Text style={styles.welcomeText}>Welcome ...</Text>
+      <Text style={styles.signIntext}>Sign in to continue </Text>
       <View style={styles.inputStyle}>
         <EvilIcons name="envelope" size={24} color="gray" />
         <TextInput placeholder="Your Email" />
@@ -41,10 +43,12 @@ export function SignInForm(props) {
         <Text style={styles.fgtPassText}>Forgot Password</Text>
       </View>
 
+      {/* <Pressable onPress={() => navigation.navigate("Register")}> */}
       <View style={styles.bottomContent}>
         <Text style={styles.bottomText}>Don't have an account?</Text>
         <Text style={styles.bottomTextTwo}>Register</Text>
       </View>
+      {/* </Pressable> */}
     </View>
   );
 }
@@ -56,6 +60,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
 
+  welcomeText: {
+    color: "#3A4874",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  signIntext: {
+    textAlign: "center",
+    color: "gray",
+  },
   inputStyle: {
     flexDirection: "row",
     alignItems: "center",

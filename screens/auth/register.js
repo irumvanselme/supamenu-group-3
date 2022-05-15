@@ -1,5 +1,7 @@
 import { StyleSheet, View, Image, Text, ScrollView } from "react-native";
 import { SignUpForm } from "../../components/signUpForm";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 export default function RegisterScreen() {
   return (
     <SafeAreaView>

@@ -23,7 +23,7 @@ function AuthNavigator() {
   const Stack = createStackNavigator();
 
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator initialRouteName="Register">
       <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen
         name="Login"
