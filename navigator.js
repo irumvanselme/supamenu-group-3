@@ -109,6 +109,9 @@ function AppNavigator() {
             />
             <Tabs.Screen
                 options={{
+                    tabBarStyle: {
+                        display: "none",
+                    },
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons
                             name="line-scan"

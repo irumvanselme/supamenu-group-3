@@ -1,5 +1,6 @@
 import { View, Text } from "react-native";
 import CartScreen from "./cart";
+import SearchScreen from "./search";
 
 export function HomeScreen() {
     return (
@@ -18,11 +19,7 @@ export function NotificationScreen() {
 }
 
 export function ScanScreen() {
-    return (
-        <View>
-            <Text>Yello</Text>
-        </View>
-    );
+    return <SearchScreen />;
 }
 
 export function ClockScreen() {
