@@ -19,7 +19,7 @@ import RegisterScreen from "./screens/auth/register";
 import SplashScreen from "./screens/auth/splash";
 
 export default function Navigator() {
-    const isLoggedIn = true;
+    const isLoggedIn = false;
 
     if (isLoggedIn) return <AppNavigator />;
     else return <AuthNavigator />;
@@ -29,15 +29,18 @@ function AuthNavigator() {
     const Stack = createStackNavigator();
 
     return (
-        <Stack.Navigator
-            initialRouteName="Login"
-            screenOptions={{
-                headerShown: false,
-            }}
-        >
+        <Stack.Navigator initialRouteName="Login">
             <Stack.Screen name="Splash" component={SplashScreen} />
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="Register"
+                component={RegisterScreen}
+                options={{ headerShown: false }}
+            />
         </Stack.Navigator>
     );
 }
