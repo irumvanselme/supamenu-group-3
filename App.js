@@ -14,13 +14,7 @@ export default function App() {
     return (
         <NavigationContainer>
             <TailwindProvider utilities={utiilities}>
-                <View style={styles.container}>
-                    <Text style={tailwind("text-red-500")}>
-                        Open up App.js to start working on your app one yello!
-                    </Text>
-                    <EntryScreen />
-                    <StatusBar style="auto" />
-                </View>
+                <Navigator />
             </TailwindProvider>
         </NavigationContainer>
     );
