@@ -23,7 +23,12 @@ function AuthNavigator() {
     const Stack = createStackNavigator();
 
     return (
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator
+            initialRouteName="Login"
+            screenOptions={{
+                headerShown: false,
+            }}
+        >
             <Stack.Screen name="Splash" component={SplashScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
@@ -35,7 +40,12 @@ function AppNavigator() {
     const Tabs = createBottomTabNavigator();
 
     return (
-        <Tabs.Navigator initialRouteName="Search">
+        <Tabs.Navigator
+            initialRouteName="Search"
+            screenOptions={{
+                headerShown: false,
+            }}
+        >
             <Tabs.Screen name="Cart" component={CartScreen} />
             <Tabs.Screen name="Checkout" component={CheckoutScreen} />
             <Tabs.Screen name="OrderSuccess" component={OrderSuccessScreen} />
