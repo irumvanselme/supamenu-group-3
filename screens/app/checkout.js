@@ -17,10 +17,10 @@ export default function CheckoutScreen() {
             <SafeAreaView style={styles.mainView}>
                 <View style={styles.container}>
 
-                    <Ionicons style={styles.back} name="chevron-back-outline" size={50} color="green" />
+                    <Ionicons style={styles.back} name="chevron-back-outline" size={60} color="green" />
                     <View style={styles.checkoutHeader}>
                         <Text style={styles.title}>Checkout</Text>
-                        <FontAwesome style={styles.creditCard} name="credit-card" size={24} color="black"/>
+                        <FontAwesome style={styles.creditCard} name="credit-card" size={18} color="black"/>
                     </View>
 
 
@@ -79,7 +79,7 @@ export default function CheckoutScreen() {
                 <Pressable onPress={() => {
                 }}>
                     <View style={styles.buttonAndIcon}>
-                        <EvilIcons style={styles.icon} name="unlock" size={70} color="white"/>
+                        <EvilIcons style={styles.icon} name="unlock" size={50} color="white"/>
                         <Text style={styles.buttonText}>Pay for the order</Text>
                     </View>
                 </Pressable>
@@ -93,34 +93,32 @@ export default function CheckoutScreen() {
 const styles = StyleSheet.create({
 
     mainView: {
-        //marginTop: 70,
-        paddingBottom: 180,
+        marginTop: -18,
+        paddingBottom: 50,
         backgroundColor: "#ffffff",
     },
     container: {
         backgroundColor: "#ffffff",
-        height: 400,
+        height: 280,
         width: "96%",
         marginBottom: 100,
         marginTop:0,
         borderRadius:30,
         borderWidth:0,
-        shadowColor: "rgb(-107, 157, 56)",
-        shadowRadius: 80,
-        shadowOpacity: 10,
-
+        elevation:30
     },
     price: {
-        color: "#0CC805",
+        color: "#25D482",
         textAlign: "right",
-        fontSize: 28,
-        marginRight: 20
+        fontSize: 20,
+        marginRight: 10,
+        marginTop:-30
     },
     tax: {
         color: "#000000",
-        fontSize: 24,
+        fontSize: 14,
         textAlign: "right",
-        marginRight: 20
+        marginRight: 10
     },
     buttons: {
         display: "inline"
@@ -129,7 +127,7 @@ const styles = StyleSheet.create({
     btn1: {
         color: "#000000",
         backgroundColor: "#ffffff",
-        marginLeft: 40
+        marginLeft: 10
     },
     btn2: {
         color: "#ffffff",
@@ -138,18 +136,18 @@ const styles = StyleSheet.create({
     },
     heading: {
         color: "#000",
-        fontSize: 40,
-        marginLeft: 40,
-        marginTop: '10%'
+        fontSize: 20,
+        marginLeft: 50,
+        marginTop: 50
     },
     containerImage: {
-        width: 180,
-        height: 150,
+        width: 150,
+        height: 140,
         marginLeft: 1,
         marginTop: 10
     },
     top: {
-        marginTop: 20,
+        marginTop: 0,
     },
 
     containerMtn: {
@@ -158,16 +156,16 @@ const styles = StyleSheet.create({
         width: "90%",
         height: 80,
         marginLeft: 20,
-        marginBottom: 100
+        marginBottom: 60
     },
     containerAirTel: {
         display: "flex",
         flexDirection: "row",
-        backgroundColor: "rgba(242,242,242,0.5)",
+        backgroundColor:"rgba(242,242,242,1)",
         width: "90%",
-        height: 150,
+        height: 130,
         marginLeft: 20,
-        marginBottom: 70
+        marginBottom: 10
     },
     containerCash: {
         display: "flex",
@@ -175,18 +173,18 @@ const styles = StyleSheet.create({
         width: "90%",
         height: 80,
         marginLeft: 20,
-        marginBottom: 70
+        marginBottom: 140
     },
 
     paragraph: {
-        fontSize: 24,
-        marginLeft: 200,
+        fontSize: 20,
+        marginLeft: 20,
         color: "#000"
     },
     buttonAndIcon: {
-        backgroundColor: "rgb(-107, 157, 56)",
+        backgroundColor: "#25D482",
         width: "80%",
-        height: 100,
+        height: 70,
         marginLeft: "10%",
         marginTop: 30,
         borderRadius: 30,
@@ -196,75 +194,75 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     icon: {
-        marginLeft: 100,
+        marginLeft: 70,
         alignItems: "center"
     },
     buttonText: {
         color: "rgb(255,255,255)",
-        fontSize: 40,
+        fontSize: 24,
         marginLeft: 10
 
     },
     checkoutHeader: {
         display: "flex",
         flexDirection: "row",
-        marginTop: 70,
-        fontSize:28
+        marginTop: 50,
+        fontSize:0,
     },
     title: {
         color: "#000",
         bold: "700",
-        fontSize: 28,
+        fontSize: 22,
         marginLeft: 40
     },
     creditCard: {
         marginLeft: 12,
         marginTop: 10,
-        backgroundColor: "gold"
+        backgroundColor: "gold",
+        height:18
     },
 
     card: {
         backgroundColor:"#ffffff",
-        fontSize:35,
+        fontSize:24,
         color:"#000"
     },
     cash: {
         color: "#ffffff",
         textAlign: "center",
-        fontSize:35
+        fontSize:24,
+        backgroundColor: "#25D482",
 
     },
 
     cardContainer1: {
-        minHeight: 50,
+        minHeight: 40,
         alignItems: "center",
         justifyContent: "center",
         backgroundColor:"#ffffff",
-        marginTop:60,
+        marginTop:50,
         marginLeft:40,
-        width:400,
+        width:210,
         borderRadius: 30,
         borderWidth:0,
-        shadowColor: "gray",
-        shadowRadius: 10,
-        shadowOpacity: 10,
+        elevation:10
 
     },
     cardContainer2: {
         minHeight: 50,
         alignItems: "center",
         justifyContent: "center",
-        marginTop:60,
-        height:110,
-        width:340,
+        marginTop:50,
+        height:70,
+        width:210,
         marginLeft:-18,
-        backgroundColor: "rgb(-107, 157, 56)",
+        backgroundColor: "#25D489",
         borderRadius: 20,
     },
     back:{
-        marginTop:40,
+        marginTop:48,
         marginLeft:20,
-        backgroundColor:"rgba(242,242,242,0.6)",
+        backgroundColor:"rgba(242,242,242,1)",
         width:60
 
     }

@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { TailwindProvider, useTailwind } from "tailwind-rn/dist";
 import EntryScreen from "./screens/entry-screen";
+import CheckoutScreen from "./screens/app/checkout";
 
 import Navigator from "./navigator";
 
@@ -14,7 +15,8 @@ export default function App() {
     return (
         <NavigationContainer>
             <TailwindProvider utilities={utiilities}>
-                <Navigator />
+                {/* <Navigator /> */}
+                <CheckoutScreen/>
             </TailwindProvider>
         </NavigationContainer>
     );

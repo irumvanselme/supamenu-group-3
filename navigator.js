@@ -19,7 +19,7 @@ import RegisterScreen from "./screens/auth/register";
 import SplashScreen from "./screens/auth/splash";
 
 export default function Navigator() {
-    const isLoggedIn = false;
+    const isLoggedIn = true;
 
     if (isLoggedIn) return <AppNavigator />;
     else return <AuthNavigator />;
