@@ -83,7 +83,7 @@ function CartItem() {
     );
 }
 
-export default function CartScreen() {
+export default function CartScreen({ navigation }) {
     return (
         <SafeAreaView>
             <ScrollView>
@@ -119,7 +119,7 @@ export default function CartScreen() {
                         <TouchableOpacity
                             style={styles.proccedButton}
                             onPress={() => {
-                                console.log("proceed to checkout");
+                                navigation.navigate("CheckOut");
                             }}
                         >
                             <View style={{}}>
