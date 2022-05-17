@@ -16,8 +16,10 @@ export default function CheckoutScreen() {
         <ScrollView>
             <SafeAreaView style={styles.mainView}>
                 <View style={styles.container}>
-
-                    <Ionicons style={styles.back} name="chevron-back-outline" size={60} color="green" />
+                      <Pressable>
+                      <Ionicons style={styles.back} name="chevron-back-outline" size={60} color="green" />
+                      </Pressable>
+                
                     <View style={styles.checkoutHeader}>
                         <Text style={styles.title}>Checkout</Text>
                         <FontAwesome style={styles.creditCard} name="credit-card" size={18} color="black"/>
