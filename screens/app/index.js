@@ -1,20 +1,21 @@
 import { View, Text } from "react-native";
+import Screen from "../../layouts/Screen";
 import CartScreen from "./cart";
 import SearchScreen from "./search";
 
 export function HomeScreen() {
     return (
-        <View>
-            <Text>Yello</Text>
-        </View>
+        <Screen>
+            <Text>No Design Avaibale</Text>
+        </Screen>
     );
 }
 
 export function NotificationScreen() {
     return (
-        <View>
-            <Text>Yello</Text>
-        </View>
+        <Screen>
+            <Text>No Design Avaibale</Text>
+        </Screen>
     );
 }
 
@@ -24,9 +25,9 @@ export function ScanScreen() {
 
 export function ClockScreen() {
     return (
-        <View>
-            <Text>Yello</Text>
-        </View>
+        <Screen>
+            <Text>No Design Avaibale</Text>
+        </Screen>
     );
 }
 
