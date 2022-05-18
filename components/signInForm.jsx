@@ -13,11 +13,23 @@ import { EvilIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { AuthContext } from "../hooks/authContext";
 import { useFormik } from "formik";
+import * as SecureStore from "expo-secure-store";
+import { useEffect } from "react";
 
 export function SignInForm(props) {
   const { navigation } = props;
 
   const setIsLoggedIn = react.useContext(AuthContext).setIsLoggedIn;
+
+  useEffect(() => {
+    async function getToken() {
+      const token = await SecureStore.getItemAsync("token");
+      if (token) {
+        navigation.navigate("Home");
+      }
+    }
+    getToken();
+  }, []);
 
   const { handleSubmit, handleChange, handleReset, values } = useFormik({
     initialValues: {
@@ -50,6 +62,9 @@ export function SignInForm(props) {
       const data = await response.json();
 
       if (data.token.accessToken) {
+        console.log("token", data.token.accessToken);
+        // setIsLoggedIn(true);
+        await SecureStore.setItemAsync("token", data.token.accessToken);
         setIsLoggedIn(true);
       }
     },

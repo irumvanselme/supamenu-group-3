@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 
 import {
@@ -14,10 +14,21 @@ import { EvilIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import react from "react";
 import { AuthContext } from "../hooks/authContext";
+import * as SecureStore from "expo-secure-store";
 
 import * as Yup from "yup";
 
 export function SignUpForm({ navigation }) {
+  // useEffect(() => {
+  //   async function getToken() {
+  //     const token = await AsyncStorage.getItem("token");
+  //     if (token) {
+  //       navigation.navigate("Home");
+  //     }
+  //   }
+  //   getToken();
+  // }, []);
+
   const setIsLoggedIn = react.useContext(AuthContext).setIsLoggedIn;
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -77,8 +88,6 @@ export function SignUpForm({ navigation }) {
         Alert.alert("Error", data.apierror.message);
         return;
       }
-
-      navigation.navigate("Login");
     },
   });
   return (
