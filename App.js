@@ -3,7 +3,6 @@ import { TailwindProvider } from "tailwind-rn";
 import { AuthProvider } from "./hooks/authContext";
 
 import Navigator from "./navigator";
-
 import utiilities from "./tailwind.json";
 
 export default function App() {

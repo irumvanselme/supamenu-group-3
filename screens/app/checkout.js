@@ -1,3 +1,4 @@
+import {useState} from "react"
 import {
   SafeAreaView,
   Pressable,
@@ -5,12 +6,70 @@ import {
   Text,
   StyleSheet,
   Image,
-  ScrollView,
+  TouchableOpacity,
+  Modal,
+  TextInput,Alert
 } from "react-native";
 import { FontAwesome, Ionicons, EvilIcons } from "@expo/vector-icons";
+import { useFormik } from "formik";
 import Screen from "../../layouts/Screen";
-
+import axios from "axios";
 export default function CheckoutScreen({ navigation }) {
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [telecom, setTelecom] = useState("MTN")
+
+  const[CashOrderInfo,setCashOrderInfo]=useState(10)
+  const[CashRegChannel,setCashRegChannel]=useState("USSD")
+
+  const { handleSubmit, handleChange, values } = useFormik({
+    initialValues: {
+      phoneNumber: "",
+      orderInfo:5,
+      regChannel:"USSD"
+    },
+    onSubmit: async (values) => {
+      if (
+        !values.phoneNumber ||
+        !values.orderInfo
+      ) {
+        Alert.alert("Error", "Your phone number is required");
+        return;
+      }
+
+      try {
+        const result = await axios.post("http://196.223.240.154:8099/supapp/api/payments/momo",{
+          phoneNumber: values.phoneNumber,  
+          orderInfo:values.orderInfo,
+          regChannel:values.regChannel,
+          telecom
+          })
+        if (result.ok) {
+          Alert.alert("Sucsess", "Payment completed successfully");
+        } 
+      } catch (err) {
+        console.log(err.message)
+      }
+    }
+  })
+
+  const payByCash=async(e)=>{
+    e.preventDefault()
+     try {
+       const result=await axios.post("http://196.223.240.154:8099/supapp/api/payments/cash",{
+         CashOrderInfo,
+         CashRegChannel
+       })
+       if (result.ok) {
+        console.log("Sucsess", "Payment completed successfully");
+        console.log(result)
+      }
+     } catch (error) {
+       console.log(error.message)
+     }
+  }
+
+
   return (
     <Screen>
       <SafeAreaView style={styles.mainView}>
@@ -19,7 +78,7 @@ export default function CheckoutScreen({ navigation }) {
             <Ionicons
               style={styles.back}
               name="chevron-back-outline"
-              size={60}
+              size={30}
               color="green"
             />
           </Pressable>
@@ -30,6 +89,7 @@ export default function CheckoutScreen({ navigation }) {
               style={styles.creditCard}
               name="credit-card"
               size={18}
+
               color="black"
             />
           </View>
@@ -52,6 +112,49 @@ export default function CheckoutScreen({ navigation }) {
           </Pressable>
         </View>
 
+         <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}>
+        
+        <View style={{
+          
+          backgroundColor: "#000000aa"
+        }}>
+        <View style={styles.modal}>
+
+<View>
+<Pressable
+onPress={() => setModalVisible(!modalVisible)}>
+<EvilIcons style={styles.buttonClose} name="close" size={30} color="black" />
+</Pressable>
+  <Text style={styles.heading1}>Payment</Text>
+</View>
+<View style={styles.form} >
+  <TextInput style={styles.textInput}
+  placeholder="Enter your phone number"
+  value={values.phoneNumber}
+  onChangeText={handleChange("phoneNumber")}
+  />
+</View>
+ <TouchableOpacity  onPress={() => {handleSubmit()
+}}>
+   <View style={styles.mButton}>
+   <Text style={styles.mText}>Continue</Text>
+   </View>
+ </TouchableOpacity>
+</View>
+        </View>
+   </Modal>
+
+
+         <TouchableOpacity   onPress={() => {
+           setTelecom("MTN")
+           setModalVisible(true)}}>
         <View style={styles.containerMtn}>
           <Image
             style={styles.containerImage}
@@ -61,7 +164,11 @@ export default function CheckoutScreen({ navigation }) {
             <Text style={styles.heading}>MTN Mobile Money</Text>
           </View>
         </View>
+        </TouchableOpacity>
 
+         <TouchableOpacity onPress={() => {
+           setTelecom("AIRTEL")
+           setModalVisible(true)}}>
         <View style={styles.containerAirTel}>
           <Image
             style={styles.containerImage}
@@ -71,7 +178,12 @@ export default function CheckoutScreen({ navigation }) {
             <Text style={styles.heading}>Airtel Money</Text>
           </View>
         </View>
+        </TouchableOpacity>
 
+
+
+
+        <TouchableOpacity onPress={ payByCash}>
         <View style={styles.containerCash}>
           <Image
             style={styles.containerImage}
@@ -81,8 +193,11 @@ export default function CheckoutScreen({ navigation }) {
             <Text style={styles.heading}>Cash</Text>
           </View>
         </View>
-
+        </TouchableOpacity>
         <View>
+
+
+
           <Text style={styles.paragraph}>
             We will send you an order details to your {"\n"} email after the
             successful payment
@@ -281,6 +396,56 @@ const styles = StyleSheet.create({
     marginTop: 48,
     marginLeft: 20,
     backgroundColor: "rgba(242,242,242,1)",
-    width: 60,
+    width: 40,
   },
+  heading1:{
+    textAlign:"center",
+    color:"black",
+    fontSize:24,
+    marginTop:50
+},
+textInput:{
+  borderWidth:2,
+  borderColor:"#e1e1e1",
+  height:55,
+  color:"#000",
+  paddingLeft:10,
+  flexDirection: "row",
+  alignItems: "center",
+  borderRadius: 8,
+},
+form:{
+    width:300,
+    marginLeft:50,   
+    marginTop:40
+},
+modal:{
+  height:"50%",
+  backgroundColor: "#fff",
+  marginTop:340,
+  margin:50,
+  elevation:60,
+  borderRadius:14
+  
+},
+mButton:{
+  marginTop:30,
+  marginLeft:100,
+  backgroundColor: "#25D482",
+  width:200,
+  height:40,
+  borderRadius:15
+},
+mText:{
+  color:"#fff",
+  textAlign:"center",
+  padding:10,
+},
+buttonClose:{
+  textAlign:"right",
+  marginRight:15,
+  marginTop:10,
+  color:"red"
+
+}
 });

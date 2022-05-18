@@ -17,7 +17,6 @@ import { AuthContext } from "../hooks/authContext";
 
 export function SignUpForm({ navigation }) {
   const setIsLoggedIn = react.useContext(AuthContext).setIsLoggedIn;
-
   const { handleSubmit, handleChange, handleReset, values } = useFormik({
     initialValues: {
       email: "",
