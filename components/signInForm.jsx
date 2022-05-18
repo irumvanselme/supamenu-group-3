@@ -155,6 +155,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#F7941D",
     width: 327,
     height: 50,
+    shadowColor: "rgba(0, 0, 0, 0.1)",
+    shadowOpacity: 0.1,
+    elevation: 1,
+    shadowRadius: 15,
+    shadowOffset: { width: 1, height: 13 },
   },
   cap: {
     fontSize: 16,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 
 import {
@@ -15,8 +15,11 @@ import { AntDesign } from "@expo/vector-icons";
 import react from "react";
 import { AuthContext } from "../hooks/authContext";
 
+import * as Yup from "yup";
+
 export function SignUpForm({ navigation }) {
   const setIsLoggedIn = react.useContext(AuthContext).setIsLoggedIn;
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { handleSubmit, handleChange, handleReset, values } = useFormik({
     initialValues: {
@@ -26,6 +29,16 @@ export function SignUpForm({ navigation }) {
       fullName: "",
     },
 
+    // validationSchema: Yup.object().shape({
+    //   email: Yup.string()
+    //     .email("Invalid email address")
+    //     .required("Email is required"),
+    //   password: Yup.string().min(8).required("Password is required"),
+    //   fullName: Yup.string().required("Full Name is required"),
+    //   mobile: Yup.number()
+    //     .max(10, "Invalid Mobile Number")
+    //     .required("Phone number is required"),
+    // }),
     onSubmit: async (values, { resetForm }) => {
       if (
         !values.email ||
@@ -36,6 +49,8 @@ export function SignUpForm({ navigation }) {
         Alert.alert("Error", "You must fill in all fields");
         return;
       }
+
+      setIsSubmitting(true);
       const response = await fetch(
         "http://196.223.240.154:8099/supapp/api/auth/client/signup",
         {
@@ -52,23 +67,18 @@ export function SignUpForm({ navigation }) {
           }),
         }
       );
-
-      if (!response.ok) {
-        Alert.alert("Error", "Something went wrong");
-      }
-
       const data = await response.json();
 
-      console.log(data);
+      setIsSubmitting(false);
 
-      // if (!data.apierror) {
-      //   resetForm();
-      //   Alert.alert("Success", "You have successfully signed up!");
-      //   navigation.navigate("Login");
-      //   return;
-      // } else {
-      //   Alert.alert("Error", data.apierror.message);
-      // }
+      if (!response.ok) {
+        // console.log("Failed");
+        console.log(data);
+        Alert.alert("Error", data.apierror.message);
+        return;
+      }
+
+      navigation.navigate("Login");
     },
   });
   return (
@@ -88,6 +98,7 @@ export function SignUpForm({ navigation }) {
           placeholder="Phone Number"
           autoCapitalize="none"
           value={values.mobile}
+          keyboardType="numeric"
           onChangeText={handleChange("mobile")}
         />
       </View>
@@ -116,11 +127,13 @@ export function SignUpForm({ navigation }) {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            // setIsLoggedIn(true);
+            console.log(values);
             handleSubmit();
           }}
         >
-          <Text style={styles.cap}>Proceed</Text>
+          <Text style={styles.cap}>
+            {isSubmitting ? "Signing up.." : "Proceed"}
+          </Text>
         </TouchableOpacity>
       </View>
 
