@@ -14,23 +14,26 @@ import { FontAwesome, Ionicons, EvilIcons } from "@expo/vector-icons";
 import { useFormik } from "formik";
 import Screen from "../../layouts/Screen";
 import axios from "axios";
+
+import { getToken } from "../../utils/token";
+
 export default function CheckoutScreen({ navigation }) {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [telecom, setTelecom] = useState("MTN")
 
-  const[CashOrderInfo,setCashOrderInfo]=useState(10)
-  const[CashRegChannel,setCashRegChannel]=useState("USSD")
+  const[orderInfo,setOrderInfo]=useState(17)
+  const[regChannel,setRegChannel]=useState("USSD")
 
   const { handleSubmit, handleChange, values } = useFormik({
     initialValues: {
-      phoneNumber: "",
-      orderInfo:5,
+      msisdn: "",
+      orderInfo:14,
       regChannel:"USSD"
     },
     onSubmit: async (values) => {
       if (
-        !values.phoneNumber ||
+        !values.msisdn ||
         !values.orderInfo
       ) {
         Alert.alert("Error", "Your phone number is required");
@@ -39,33 +42,42 @@ export default function CheckoutScreen({ navigation }) {
 
       try {
         const result = await axios.post("http://196.223.240.154:8099/supapp/api/payments/momo",{
-          phoneNumber: values.phoneNumber,  
+          msisdn: values.msisdn,  
           orderInfo:values.orderInfo,
           regChannel:values.regChannel,
           telecom
-          })
-        if (result.ok) {
-          Alert.alert("Sucsess", "Payment completed successfully");
-        } 
+          },
+          {
+          headers:{
+            Authorization: `Bearer ${await getToken()}`
+          }
+        })
+  
+         Alert.alert("Sucsess", "Payment completed successfully");
+          console.log(result)
       } catch (err) {
-        console.log(err.message)
+        console.log(err.response.data)
       }
     }
   })
 
-  const payByCash=async(e)=>{
-    e.preventDefault()
+  const payByCash=async()=>{
      try {
        const result=await axios.post("http://196.223.240.154:8099/supapp/api/payments/cash",{
-         CashOrderInfo,
-         CashRegChannel
-       })
-       if (result.ok) {
-        console.log("Sucsess", "Payment completed successfully");
-        console.log(result)
+         orderInfo,
+         regChannel
+       },
+       {
+        headers:{
+        Authorization: `Bearer ${await getToken()}`
       }
+    }
+    )
+      Alert.alert("Sucsess", "Payment completed successfully");
+        console.log(result)
+      
      } catch (error) {
-       console.log(error.message)
+       console.log(error.response.data)
      }
   }
 
@@ -137,8 +149,8 @@ onPress={() => setModalVisible(!modalVisible)}>
 <View style={styles.form} >
   <TextInput style={styles.textInput}
   placeholder="Enter your phone number"
-  value={values.phoneNumber}
-  onChangeText={handleChange("phoneNumber")}
+  value={values.msisdn}
+  onChangeText={handleChange("msisdn")}
   />
 </View>
  <TouchableOpacity  onPress={() => {handleSubmit()
@@ -252,7 +264,7 @@ const styles = StyleSheet.create({
   },
   tax: {
     color: "#000000",
-    fontSize: 14,
+    fontSize: 17,
     textAlign: "right",
     marginRight: 10,
   },
@@ -278,7 +290,7 @@ const styles = StyleSheet.create({
   },
   containerImage: {
     width: 150,
-    height: 140,
+    height: 170,
     marginLeft: 1,
     marginTop: 10,
   },
@@ -309,7 +321,7 @@ const styles = StyleSheet.create({
     width: "90%",
     height: 80,
     marginLeft: 20,
-    marginBottom: 140,
+    marginBottom: 170,
   },
 
   paragraph: {
@@ -425,7 +437,7 @@ modal:{
   marginTop:340,
   margin:50,
   elevation:60,
-  borderRadius:14
+  borderRadius:17
   
 },
 mButton:{
