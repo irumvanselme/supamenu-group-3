@@ -23,7 +23,7 @@ import { useContext } from "react";
 
 export default function Navigator() {
     if (useContext(AuthContext).isLoggedIn) return <AppNavigator />;
-    else return <AuthNavigator />;
+    else return <AppNavigator />;
 }
 
 function AuthNavigator() {

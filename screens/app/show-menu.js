@@ -1,4 +1,4 @@
-import { View,SafeAreaView,  Text,  StyleSheet, FlatList} from "react-native";
+import { View,SafeAreaView, ScrollView,  Text,  StyleSheet, FlatList} from "react-native";
 import styles from "../../styles";
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 

@@ -22,7 +22,7 @@ export default function RateScreen() {
                   key={index} 
                   rating={number} 
                   color={number>=3 ? '#ffffff' : '#f7941d'}
-                  handleTap={(rating)=>rateServiceAPI(rating)}/>
+                  handleTap={(rating)=>rateServiceAPI(rating, 1,2)}/>
               ))}
             </View> 
             
