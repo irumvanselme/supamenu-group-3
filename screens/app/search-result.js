@@ -106,12 +106,13 @@ const styles = StyleSheet.create({
     container: {
         display: "flex",
         flexDirection: "row",
-        backgroundColor: "rgba(242,242,242,0.4)",
+        backgroundColor: "#d2d2cf",
         borderRadius: 10,
-        width: 300,
+        width: 370,
         height: 80,
         marginLeft: 20,
         marginBottom: 20,
+        opacity:0.9
     },
     heading: {
         color: "#000",
@@ -119,8 +120,8 @@ const styles = StyleSheet.create({
         marginLeft: 20,
     },
     containerImage: {
-        width: 50,
-        height: 50,
+        width: 70,
+        height: 68,
         borderRadius: 15,
         marginLeft: 4,
         marginTop: 10,
@@ -135,6 +136,7 @@ const styles = StyleSheet.create({
         color: "#F7941D",
         marginBottom: 40,
         marginTop: 50,
+        fontSize:18
     },
     mainView: {
         paddingBottom: 100,
