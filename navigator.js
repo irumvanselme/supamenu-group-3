@@ -60,6 +60,7 @@ function AppNavigator() {
         <Tabs.Navigator
             initialRouteName="Search"
             screenOptions={{
+                tabBarHideOnKeyboard: true,
                 headerShown: false,
                 tabBarInactiveTintColor: "black",
                 tabBarStyle: {
