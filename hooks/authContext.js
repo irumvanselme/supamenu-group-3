@@ -1,4 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { View, Text } from "react-native";
+import { getToken } from "../utils/token";
 
 const AuthContext = createContext({
     authedUser: {},
@@ -10,6 +12,22 @@ const AuthContext = createContext({
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState({});
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        (async function () {
+            let token = await getToken();
+            setIsLoggedIn(token != null);
+            setIsLoading(false);
+        })();
+    }, []);
+
+    if (isLoading)
+        return (
+            <View>
+                <Text>Loading</Text>
+            </View>
+        );
 
     return (
         <AuthContext.Provider

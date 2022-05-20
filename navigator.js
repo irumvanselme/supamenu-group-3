@@ -23,7 +23,7 @@ import { useContext } from "react";
 
 export default function Navigator() {
     if (useContext(AuthContext).isLoggedIn) return <AppNavigator />;
-    else return <AppNavigator />;
+    else return <AuthNavigator />;
 }
 
 function AuthNavigator() {
@@ -53,9 +53,9 @@ function AuthNavigator() {
     );
 }
 
-function AppNavigator() {
-    const Tabs = createBottomTabNavigator();
+const Tabs = createBottomTabNavigator();
 
+function AppNavigator() {
     return (
         <Tabs.Navigator
             initialRouteName="Search"
