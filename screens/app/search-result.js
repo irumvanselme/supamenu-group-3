@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useReducer, useEffect } from "react"
 import {
     View,
     Text,
@@ -10,25 +12,62 @@ import {
 import Screen from "../../layouts/Screen";
 
 const Restaurant = ({ navigatation }) => {
+
+    const reducer = (state, action) => {
+        switch (action.type) {
+            case "FETCH_REQUEST":
+                return { ...state, loading: true }
+            case "FETCH_SUCCESS":
+                return { ...state, contents: action.payload, loading: false }
+            case "FETCH_FAIL":
+                return { ...state, error: action.payload, loading: false }
+            default:
+                return state;
+        }
+    }
+
+    const [{ loading, error, contents }, dispatch] = useReducer(reducer, {
+        loading: true,
+        error: "",
+        contents: []
+    })
+
+    useEffect(() => {
+        const fetchContent = async () => {
+            dispatch({ type: "FETCH_REQUEST" })
+            try {
+                const result = await axios.get("http://196.223.240.154:8099/supapp/api/service-providers")
+                dispatch({ type: "FETCH_SUCCESS", payload: result.data.content })
+                console.log("Request success")
+            } catch (error) {
+                dispatch({ type: "FETCH_FAIL", payload: error })
+            }
+        }
+        fetchContent()
+    }, [])
     return (
-        <TouchableOpacity
-            onPress={() => {
-                navigatation.navigate("ShowMenu");
-            }}
-        >
-            <View style={styles.container}>
-                <Image
-                    style={styles.containerImage}
-                    source={require("../../assets/resturants.png")}
-                />
-                <View style={styles.top}>
-                    <Text style={styles.heading}>Choose Kigali</Text>
-                    <Text style={styles.p}>
-                        World, Africa, Pizzeria, Coffee
-                    </Text>
-                </View>
+        <ScrollView>
+
+
+            <View>
+                {contents.map((c) => (
+                    <TouchableOpacity key={c.id}
+                        onPress={() => {
+                            navigatation.navigate("ShowMenu")
+                        }}>
+                        <View style={styles.container}>
+                            <Image
+                                style={styles.containerImage}
+                                source={{uri:"https://picsum.photos/200/300/?blur"}} />
+                            <View style={styles.top}>
+                                <Text style={styles.heading}>{c.name}</Text>
+                                <Text style={styles.p}>{c.address}, {c.phone},{c.email}</Text>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                ))}
             </View>
-        </TouchableOpacity>
+        </ScrollView>
     );
 };
 
@@ -55,11 +94,8 @@ export default function SearchResultScreen({ navigation }) {
                 <Text style={styles.mainHeader}>Nearby Restaurants</Text>
 
                 <View>
-                    {[1, 2, 3, 4].map((item) => (
-                        <View key={item}>
-                            <Restaurant navigatation={navigation} />
-                        </View>
-                    ))}
+                    <Restaurant navigatation={navigation} />
+
                 </View>
             </SafeAreaView>
         </Screen>

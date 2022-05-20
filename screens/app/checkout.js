@@ -54,9 +54,8 @@ export default function CheckoutScreen({ navigation }) {
         })
   
          Alert.alert("Sucsess", "Payment completed successfully");
-          console.log(result)
       } catch (err) {
-        console.log(err.response.data)
+        Alert.alert("Error","Something went wrong")
       }
     }
   })
@@ -74,10 +73,8 @@ export default function CheckoutScreen({ navigation }) {
     }
     )
       Alert.alert("Sucsess", "Payment completed successfully");
-        console.log(result)
-      
      } catch (error) {
-       console.log(error.response.data)
+       Alert.alert("Error","Payment didn't completed sucessfylly")
      }
   }
 
@@ -249,7 +246,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     height: 280,
     width: "96%",
-    marginBottom: 100,
+    marginBottom: 70,
     marginTop: 0,
     borderRadius: 30,
     borderWidth: 0,
@@ -289,8 +286,8 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   containerImage: {
-    width: 150,
-    height: 170,
+    width: 180,
+    height: 130,
     marginLeft: 1,
     marginTop: 10,
   },
