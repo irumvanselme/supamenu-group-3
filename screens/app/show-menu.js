@@ -1,50 +1,119 @@
-import { View,SafeAreaView, ScrollView,  Text,  StyleSheet, FlatList} from "react-native";
+import {
+    View,
+    SafeAreaView,
+    ScrollView,
+    Text,
+    StyleSheet,
+    FlatList,
+} from "react-native";
 import styles from "../../styles";
-import { FontAwesome5 } from '@expo/vector-icons'; 
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { FontAwesome5 } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import MyMenu from "../../components/MyMenu";
+import react from "react";
+import { useEffect } from "react/cjs/react.production.min";
+import { getToken } from "../../utils/token";
 
-export default function ShowMenuScreen() {
-    const menuListData = [
-        {id: 1, name: "Appetizer"}, 
-        {id: 2, name: "Starter"}, 
-        {id: 3, name: "Main"}, 
-        {id: 4, name: "Dessert"}, 
-        {id: 5, name: "Drinks"}
-    ];
+import axios from "axios";
+
+export default function ShowMenuScreen({ navigation, route }) {
+    const [items, setItems] = react.useState([]);
+
+    console.log(route.params);
+
+    react.useEffect(() => {
+        (async function () {
+            let token = await getToken();
+
+            let { data } = await axios.get(
+                "http://196.223.240.154:8099/supapp/api/menu-categories/listAll/service-provider/" +
+                    route.params.item.id,
+                {
+                    headers: {
+                        Authorization: "Bearer " + token,
+                    },
+                }
+            );
+
+            setItems(data);
+        })();
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
-          <View>
-          <Text style={[styles.text, {marginBottom: 20}]}>Choose Kigali</Text>
-          </View>
+            <View>
+                <Text style={[styles.text, { marginBottom: 20 }]}>
+                    Choose Kigali
+                </Text>
+            </View>
 
             <View style={othestyle.options}>
-               <View style={othestyle.centeredItem}>
-                   <View style={{flexDirection: "row"}}>
-                   <MaterialCommunityIcons name="truck-delivery" size={40} color="#f7941d" style={{marginBottom: 15}}/>
-                   <Text style={[styles.text, {color: "white", marginTop: 10, marginLeft: 10}]}>N8</Text>
-                   </View>
-                   <Text style={[styles.text, {color: "white"}]}>Ordered</Text>
-               </View>
-               <View style={othestyle.verticleLine}></View>
-               <View style={othestyle.centeredItem}>
-                   <FontAwesome5 name="phone" size={40} color="#f7941d" style={{marginBottom: 15}}/>
-                   <Text style={[styles.text, {color: "white", fontWeight: "normal"}]}>Call Waiter</Text>
-               </View>
+                <View style={othestyle.centeredItem}>
+                    <View style={{ flexDirection: "row" }}>
+                        <MaterialCommunityIcons
+                            name="truck-delivery"
+                            size={40}
+                            color="#f7941d"
+                            style={{ marginBottom: 15 }}
+                        />
+                        <Text
+                            style={[
+                                styles.text,
+                                {
+                                    color: "white",
+                                    marginTop: 10,
+                                    marginLeft: 10,
+                                },
+                            ]}
+                        >
+                            N8
+                        </Text>
+                    </View>
+                    <Text style={[styles.text, { color: "white" }]}>
+                        Ordered
+                    </Text>
+                </View>
+                <View style={othestyle.verticleLine}></View>
+                <View style={othestyle.centeredItem}>
+                    <FontAwesome5
+                        name="phone"
+                        size={40}
+                        color="#f7941d"
+                        style={{ marginBottom: 15 }}
+                    />
+                    <Text
+                        style={[
+                            styles.text,
+                            { color: "white", fontWeight: "normal" },
+                        ]}
+                    >
+                        Call Waiter
+                    </Text>
+                </View>
             </View>
 
-            <View style={{marginTop: 30, marginBottom: 30}}>
-            <Text style={styles.text}>Menu</Text>
+            <View style={{ marginTop: 30, marginBottom: 30 }}>
+                <Text style={styles.text}>Menu</Text>
             </View>
-           
+
             <FlatList
-            data={menuListData}
-            renderItem={({item}) => (
-                <MyMenu name={item.name}/>
-            )}
-           />
+                data={items}
+                renderItem={({ item }) => (
+                    <MyMenu item={item} name={item.category.name} />
+                )}
+            />
 
+            {items.length == 0 && (
+                <View>
+                    <Text
+                        style={{
+                            color: "white",
+                        }}
+                    >
+                        Yello Nothing here
+                    </Text>
+                </View>
+            )}
         </SafeAreaView>
     );
 }
@@ -55,15 +124,15 @@ const othestyle = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    verticleLine:{
+    verticleLine: {
         height: 100,
         width: 2,
-        backgroundColor: '#f7941d',
+        backgroundColor: "#f7941d",
         margin: 10,
     },
-    centeredItem:{
+    centeredItem: {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-    }
+    },
 });

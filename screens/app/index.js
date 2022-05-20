@@ -29,8 +29,12 @@ export function NotificationScreen() {
     );
 }
 
-export function ScanScreen() {
+export function ScanScreen({ navigation }) {
     const Stack = createStackNavigator();
+
+    const goToCart = () => {
+        navigation.navigate("Cart");
+    };
 
     return (
         <Stack.Navigator
@@ -43,7 +47,11 @@ export function ScanScreen() {
         >
             <Stack.Screen name="All" component={SearchResultScreen} />
             <Stack.Screen name="Search" component={SearchScreen} />
-            <Stack.Screen name="ShowMenu" component={ShowMenuScreen} />
+            <Stack.Screen
+                name="ShowMenu"
+                component={ShowMenuScreen}
+                initialParams={goToCart}
+            />
         </Stack.Navigator>
     );
 }

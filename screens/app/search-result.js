@@ -33,6 +33,8 @@ const Restaurant = ({ navigatation, searchQuery }) => {
         contents: [],
     });
 
+    console.log(searchQuery);
+
     useEffect(() => {
         const fetchContent = async () => {
             dispatch({ type: "FETCH_REQUEST" });
@@ -85,7 +87,9 @@ const Restaurant = ({ navigatation, searchQuery }) => {
                     <TouchableOpacity
                         key={c.id}
                         onPress={() => {
-                            navigatation.navigate("ShowMenu");
+                            navigatation.navigate("ShowMenu", {
+                                item: c,
+                            });
                         }}
                     >
                         <View style={styles.container}>
