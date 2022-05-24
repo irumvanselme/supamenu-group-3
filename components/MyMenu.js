@@ -1,11 +1,14 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View, DeviceEventEmitter } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
-export default function MyMenu({ item, name }) {
+export default function MyMenu({ hotel, item, name }) {
     return (
         <TouchableOpacity
             onPress={() => {
-                console.log(item);
+                DeviceEventEmitter.emit("event.goToCartFullProccess", {
+                    hotel,
+                    category: item,
+                });
             }}
         >
             <View

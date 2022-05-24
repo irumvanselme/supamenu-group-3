@@ -13,6 +13,8 @@ import CheckOutScreen from "./checkout";
 import SuccessScreen from "./order-success";
 import RateScreen from "./rate";
 
+import { DeviceEventEmitter } from "react-native";
+
 export function HomeScreen() {
     return (
         <Screen>
@@ -32,9 +34,13 @@ export function NotificationScreen() {
 export function ScanScreen({ navigation }) {
     const Stack = createStackNavigator();
 
-    const goToCart = () => {
-        navigation.navigate("Cart");
-    };
+    DeviceEventEmitter.addListener("event.goToCartFullProccess", (data) => {
+        navigation.navigate("Cart", data);
+    });
+
+    // const goToCart = (params) => {
+    //     navigation.navigate("Cart", params);
+    // };
 
     return (
         <Stack.Navigator
@@ -47,11 +53,7 @@ export function ScanScreen({ navigation }) {
         >
             <Stack.Screen name="All" component={SearchResultScreen} />
             <Stack.Screen name="Search" component={SearchScreen} />
-            <Stack.Screen
-                name="ShowMenu"
-                component={ShowMenuScreen}
-                initialParams={goToCart}
-            />
+            <Stack.Screen name="ShowMenu" component={ShowMenuScreen} />
         </Stack.Navigator>
     );
 }
@@ -64,8 +66,17 @@ export function ClockScreen() {
     );
 }
 
-export function CartNavigator() {
+export function CartNavigator({ navigation, route }) {
     const Stack = createStackNavigator();
+
+    if (route.params == undefined) {
+        navigation.navigate("Scan");
+        return (
+            <View>
+                <Text>First do the scanning</Text>
+            </View>
+        );
+    }
 
     return (
         <Stack.Navigator
@@ -76,7 +87,11 @@ export function CartNavigator() {
                 cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
             }}
         >
-            <Stack.Screen name="Entry" component={CartScreen} />
+            <Stack.Screen
+                name="Entry"
+                initialParams={{ ...route.params }}
+                component={CartScreen}
+            />
             <Stack.Screen name="CheckOut" component={CheckOutScreen} />
             <Stack.Screen name="Success" component={SuccessScreen} />
             <Stack.Screen name="Rate" component={RateScreen} />

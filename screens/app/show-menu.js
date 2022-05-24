@@ -19,8 +19,6 @@ import axios from "axios";
 export default function ShowMenuScreen({ navigation, route }) {
     const [items, setItems] = react.useState([]);
 
-    console.log(route.params);
-
     react.useEffect(() => {
         (async function () {
             let token = await getToken();
@@ -39,11 +37,15 @@ export default function ShowMenuScreen({ navigation, route }) {
         })();
     }, []);
 
+    // function goToCart(params) {
+    //     return () => route.params.goToCart(params);
+    // }
+
     return (
         <SafeAreaView style={styles.container}>
             <View>
                 <Text style={[styles.text, { marginBottom: 20 }]}>
-                    Choose Kigali
+                    Choose {route.params.item.name}
                 </Text>
             </View>
 
@@ -99,7 +101,12 @@ export default function ShowMenuScreen({ navigation, route }) {
             <FlatList
                 data={items}
                 renderItem={({ item }) => (
-                    <MyMenu item={item} name={item.category.name} />
+                    <MyMenu
+                        hotel={route.params.item}
+                        // handler={goToCart}
+                        item={item}
+                        name={item.category.name}
+                    />
                 )}
             />
 

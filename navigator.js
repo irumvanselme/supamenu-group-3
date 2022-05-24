@@ -149,6 +149,7 @@ function AppNavigator() {
             />
             <Tabs.Screen
                 options={{
+                    unmountOnBlur: true,
                     tabBarIcon: ({ color }) => (
                         <AntDesign
                             name="shoppingcart"

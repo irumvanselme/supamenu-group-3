@@ -14,8 +14,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Colors } from "../../constants";
 
-function CartItem() {
+function CartItem({ item, setTotalPrice }) {
     const [items, setItems] = useState(0);
+
     return (
         <View style={styles.cartItemContainer}>
             <View>
@@ -28,23 +29,28 @@ function CartItem() {
             </View>
             <View style={{ flexGrow: 1, marginLeft: 10 }}>
                 <View>
-                    <Text style={{ fontSize: 16 }}>Ingredients</Text>
+                    <Text style={{ fontSize: 16 }}>{item.description}</Text>
                 </View>
                 <View>
                     <Text style={{ fontSize: 17, fontWeight: "600" }}>
-                        Item name
+                        {item.name}
                     </Text>
                 </View>
                 <View style={styles.unitPriceContainer}>
                     <View>
                         <Text style={styles.unitPriceText}>
-                            Frw 12, 000 Frw
+                            Frw {item.unitPrice}
                         </Text>
                     </View>
                     <View style={styles.changeCartNumber}>
                         <TouchableOpacity
                             onPress={() => {
+                                if (items == 0) return;
+
                                 setItems(items - 1);
+                                setTotalPrice(
+                                    (totalPrice) => totalPrice - item.unitPrice
+                                );
                             }}
                         >
                             <View>
@@ -66,6 +72,9 @@ function CartItem() {
                         <TouchableOpacity
                             onPress={() => {
                                 setItems(items + 1);
+                                setTotalPrice(
+                                    (totalPrice) => totalPrice + item.unitPrice
+                                );
                             }}
                         >
                             <View>
@@ -83,19 +92,29 @@ function CartItem() {
     );
 }
 
-export default function CartScreen({ navigation }) {
+export default function CartScreen({ navigation, route }) {
+    const [items] = useState(route.params.category.items);
+    const [totalPrice, setTotalPrice] = useState(0);
+
     return (
         <SafeAreaView>
             <ScrollView>
                 <View style={styles.container}>
                     <View>
-                        <Text style={styles.screenTitle}>Choose Kigali</Text>
-                        <Text style={styles.screenFunction}>Drinks</Text>
+                        <Text style={styles.screenTitle}>
+                            Choose {route.params.hotel.name}
+                        </Text>
+                        <Text style={styles.screenFunction}>
+                            {route.params.category.category.name}
+                        </Text>
                     </View>
                     <View style={{ marginTop: 40 }}>
-                        {[1, 2, 3, 4, 5].map((item) => (
-                            <View key={item}>
-                                <CartItem />
+                        {items.map((item, i) => (
+                            <View key={i}>
+                                <CartItem
+                                    item={item}
+                                    setTotalPrice={setTotalPrice}
+                                />
                             </View>
                         ))}
                     </View>
@@ -114,7 +133,9 @@ export default function CartScreen({ navigation }) {
                         </View>
                         <View style={styles.totalMoneyContainer}>
                             <Text style={styles.totalMoneyText}>Total</Text>
-                            <Text style={styles.totalMoney}>Frw 16,000</Text>
+                            <Text style={styles.totalMoney}>
+                                Frw {totalPrice}
+                            </Text>
                         </View>
                         <TouchableOpacity
                             style={styles.proccedButton}
