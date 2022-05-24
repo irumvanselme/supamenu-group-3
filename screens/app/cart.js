@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { AntDesign, Entypo } from "@expo/vector-icons";
 
@@ -9,12 +9,15 @@ import {
     TouchableOpacity,
     ScrollView,
     StyleSheet,
+    Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Colors } from "../../constants";
+import { getToken } from "../../utils/token";
+import axios from "axios";
 
-function CartItem({ item, setTotalPrice }) {
+function CartItem({ setItemsMap, item, setTotalPrice }) {
     const [items, setItems] = useState(0);
 
     return (
@@ -46,8 +49,15 @@ function CartItem({ item, setTotalPrice }) {
                         <TouchableOpacity
                             onPress={() => {
                                 if (items == 0) return;
+                                let newStateItems = items - 1;
 
-                                setItems(items - 1);
+                                setItems(newStateItems);
+
+                                setItemsMap((state) => {
+                                    state[item.id] = newStateItems;
+                                    return state;
+                                });
+
                                 setTotalPrice(
                                     (totalPrice) => totalPrice - item.unitPrice
                                 );
@@ -71,7 +81,15 @@ function CartItem({ item, setTotalPrice }) {
                         </Text>
                         <TouchableOpacity
                             onPress={() => {
-                                setItems(items + 1);
+                                let newStateItems = items + 1;
+
+                                setItems(newStateItems);
+
+                                setItemsMap((state) => {
+                                    state[item.id] = newStateItems;
+                                    return state;
+                                });
+
                                 setTotalPrice(
                                     (totalPrice) => totalPrice + item.unitPrice
                                 );
@@ -95,6 +113,63 @@ function CartItem({ item, setTotalPrice }) {
 export default function CartScreen({ navigation, route }) {
     const [items] = useState(route.params.category.items);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [itemsMap, setItemsMap] = useState({});
+
+    useEffect(() => {
+        let newObj = { ...itemsMap };
+
+        for (let i = 0; i < items.length; i++) {
+            newObj[items[i].id] = 0;
+        }
+        setItemsMap(newObj);
+    }, [items]);
+
+    const proceedToCheckout = async () => {
+        try {
+            let orderDetails = [];
+
+            let keys = Object.keys(itemsMap);
+
+            for (let i = 0; i < keys.length; i++) {
+                orderDetails.push({
+                    item: parseInt(keys[i]),
+                    quantity: itemsMap[keys[i]],
+                });
+            }
+
+            let orderDTO = {
+                orderType: "BOOKING",
+                seat: 0,
+                status: "ORDERING",
+                orderDetails,
+            };
+
+            try {
+                const result = await axios.post(
+                    "http://196.223.240.154:8099/supapp/api/orders",
+                    orderDTO,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${await getToken()}`,
+                        },
+                    }
+                );
+
+                navigation.navigate("CheckOut", {
+                    orderInfo: result.data.id,
+                });
+
+                Alert.alert("Sucsess", "Order booked successfully");
+            } catch (error) {
+                console.log(error.response.data);
+                Alert.alert("Error", "Order wasn't booked sucessfylly");
+            }
+
+            // console.log(route.params.category.items);
+        } catch (error) {
+            return Alert.alert("Bad Request", error.response.data);
+        }
+    };
 
     return (
         <SafeAreaView>
@@ -112,6 +187,7 @@ export default function CartScreen({ navigation, route }) {
                         {items.map((item, i) => (
                             <View key={i}>
                                 <CartItem
+                                    setItemsMap={setItemsMap}
                                     item={item}
                                     setTotalPrice={setTotalPrice}
                                 />
@@ -139,9 +215,7 @@ export default function CartScreen({ navigation, route }) {
                         </View>
                         <TouchableOpacity
                             style={styles.proccedButton}
-                            onPress={() => {
-                                navigation.navigate("CheckOut");
-                            }}
+                            onPress={proceedToCheckout}
                         >
                             <View style={{}}>
                                 <Text style={styles.proccedButtonText}>
