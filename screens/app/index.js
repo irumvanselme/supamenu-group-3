@@ -2,7 +2,7 @@ import {
     CardStyleInterpolators,
     createStackNavigator,
 } from "@react-navigation/stack";
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 import Screen from "../../layouts/Screen";
 import CartScreen from "./cart";
 import SearchScreen from "./search";
@@ -14,11 +14,24 @@ import SuccessScreen from "./order-success";
 import RateScreen from "./rate";
 
 import { DeviceEventEmitter } from "react-native";
+import { logOut } from "../../utils/token";
+import react from "react";
+import { AuthContext } from "../../hooks/authContext";
 
 export function HomeScreen() {
+    const setIsLoggedIn = react.useContext(AuthContext).setIsLoggedIn
+
     return (
         <Screen>
-            <Text>No Design Avaibale</Text>
+            <View style={{
+                marginTop: 200
+            }}>
+                <Text>No Design Avaibale</Text>
+                <Button title="Logout " onPress={() => {
+                    logOut()
+                    setIsLoggedIn(false)
+                }} />
+            </View>
         </Screen>
     );
 }

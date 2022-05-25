@@ -28,7 +28,7 @@ export default function CheckoutScreen({ navigation, route }) {
     const { handleSubmit, handleChange, values } = useFormik({
         initialValues: {
             msisdn: "",
-            orderInfo: 14,
+            orderInfo,
             regChannel: "USSD",
         },
         onSubmit: async (values) => {
@@ -50,12 +50,11 @@ export default function CheckoutScreen({ navigation, route }) {
                         headers: {
                             Authorization: `Bearer ${await getToken()}`,
                         },
-                    }
-                );
-
-                Alert.alert("Sucsess", "Payment completed successfully");
-            } catch (err) {
-                Alert.alert("Error", "Something went wrong");
+                    })
+                     
+                    Alert.alert("Sucsess", "Payment completed successfully");
+                    } catch (err) {
+                    Alert.alert("Error", "Something went wrong");
             }
         },
     });
@@ -66,17 +65,15 @@ export default function CheckoutScreen({ navigation, route }) {
                 "http://196.223.240.154:8099/supapp/api/payments/cash",
                 {
                     orderInfo,
-                    regChannel,
+                    regChannel
                 },
-                {
-                    headers: {
-                        Authorization: `Bearer ${await getToken()}`,
-                    },
-                }
-            );
+                 {
+                    headers: {Authorization: `Bearer ${await getToken()}`}
+                })
             Alert.alert("Sucsess", "Payment completed successfully");
         } catch (error) {
-            Alert.alert("Error", "Payment didn't completed sucessfylly");
+            Alert.alert("Error", "Payment didn't complete sucessfylly");
+            console.log(error.response.data)
         }
     };
 

@@ -55,7 +55,6 @@ const Restaurant = ({ navigatation, searchQuery }) => {
                     type: "FETCH_SUCCESS",
                     payload: result.data.content,
                 });
-                console.log("Request success");
             } catch (error) {
                 dispatch({ type: "FETCH_FAIL", payload: error });
             }

@@ -5,3 +5,8 @@ export async function getToken() {
 
   return token;
 }
+
+
+export async function logOut() {
+  await SecureStore.deleteItemAsync("token")
+}
