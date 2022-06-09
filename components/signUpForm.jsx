@@ -53,10 +53,12 @@ export function SignUpForm({ navigation }) {
       );
 
       if (!response.ok) {
-        Alert.alert("Error", "Something went wrong");
+        Alert.alert("Error", "Invalid credentials");
       }
 
       const data = await response.json();
+      Alert.alert("Success", "You have successfully signed up");
+      navigation.navigate("Login");
 
       console.log(data);
 

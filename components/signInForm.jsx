@@ -44,10 +44,11 @@ export function SignInForm(props) {
       );
 
       if (!response.ok) {
-        Alert.alert("Error", "Something went wrong");
+        Alert.alert("Error", "Invalid credentials");
       }
 
       const data = await response.json();
+      Alert.alert("Success", "You have successfully signed in");
 
       if (data.token.accessToken) {
         await SecureStore.setItemAsync("token", data.token.accessToken);
