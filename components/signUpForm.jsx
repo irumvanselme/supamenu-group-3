@@ -59,23 +59,12 @@ export function SignUpForm({ navigation }) {
       const data = await response.json();
       Alert.alert("Success", "You have successfully signed up");
       navigation.navigate("Login");
-
-      console.log(data);
-
-      // if (!data.apierror) {
-      //   resetForm();
-      //   Alert.alert("Success", "You have successfully signed up!");
-      //   navigation.navigate("Login");
-      //   return;
-      // } else {
-      //   Alert.alert("Error", data.apierror.message);
-      // }
     },
   });
   return (
     <View style={styles.container}>
       <View style={styles.inputStyle}>
-        <Feather name="user" size={24} color="gray" />
+        <Feather name="user" size={20} color="gray" />
         <TextInput
           placeholder="Full Name"
           autoCapitalize="none"
@@ -84,7 +73,7 @@ export function SignUpForm({ navigation }) {
         />
       </View>
       <View style={styles.inputStyle}>
-        <Feather name="phone" size={24} color="gray" />
+        <Feather name="phone" size={20} color="gray" />
         <TextInput
           placeholder="Phone Number"
           autoCapitalize="none"
@@ -162,14 +151,13 @@ const styles = StyleSheet.create({
   inputStyle: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 10,
+    paddingLeft: 10,
     marginTop: 10,
     width: 327,
     height: 54,
     borderRadius: 8,
     borderColor: "#EAECEE",
     borderWidth: 2,
-    paddingLeft: 10,
   },
   submitButton: {
     marginTop: 20,

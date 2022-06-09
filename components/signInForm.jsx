@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#fff",
+    // height: "100%",
   },
 
   welcomeText: {
@@ -205,7 +206,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 8,
+    marginBottom: 10,
   },
   bottomText: {
     fontSize: 16,
