@@ -52,6 +52,10 @@ export default function CheckoutScreen({ navigation, route }) {
                         },
                     })
                      
+                    navigation.navigate("Success", {
+                        orderInfo: result.id,
+                    });
+
                     Alert.alert("Sucsess", "Payment completed successfully");
                     } catch (err) {
                     Alert.alert("Error", "Something went wrong");
@@ -223,7 +227,9 @@ export default function CheckoutScreen({ navigation, route }) {
 
                 <Pressable
                     onPress={() => {
-                        navigation.navigate("Success");
+                        navigation.navigate("Success", {
+                            orderInfo: route.params.orderInfo,
+                        });
                     }}
                 >
                     <View style={styles.buttonAndIcon}>

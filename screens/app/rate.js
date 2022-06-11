@@ -1,13 +1,47 @@
 import { SafeAreaView, View , Text, StyleSheet, Image } from "react-native";
 import FooterImage from "../../components/FooterImage";
 import Stars from "../../components/Stars";
-import useRatings from "../../hooks/useRatings";
 import styles from "../../styles";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { getToken } from "../../utils/token";
 
 export default function RateScreen() {
     const stars = [1,2,3,4,5];
-    const [rateServiceAPI, results, searchError] = useRatings();
+    const [results, setResults] = useState([]);
+    const [ratingNumber, setratingNumber] = useState(0);
+    
+    const rateServiceAPI = async (rate)=>{
+        await axios.post(`http://196.223.240.154:8099/supapp/api/service-rating`, {
+            "reviewComment": "No comment provided",
+            "score": rate,
+            "serviceProvider": 1,
+            "status": "ACTIVE",
+            "userId": 1
+        },{
+            headers:{
+                Authorization: `Bearer ${await getToken()}`,
+            }
+        }).then((res)=>{
+            setratingNumber(rate)
+            alert("Thank you for the feedback")
+          }).catch((error)=>{
+            alert("Error occured try again!")
+          })
+    }
 
+    const getRating = async ()=>{
+        axios.get(`http://196.223.240.154:8099/supapp/api/service-rating/1`,{
+            headers:{
+              Authorization: `Bearer ${await getToken()}`,
+            }
+        }).then((res)=>{
+            setratingNumber(res.data.score)
+        })
+    }
+    useEffect(()=>{
+     getRating()
+    },[])
     return (
         <SafeAreaView style={styles.container}>
             <View>
@@ -21,8 +55,8 @@ export default function RateScreen() {
                   <Stars  
                   key={index} 
                   rating={number} 
-                  color={number>=3 ? '#ffffff' : '#f7941d'}
-                  handleTap={(rating)=>rateServiceAPI(rating, 1,2)}/>
+                  color={ratingNumber<=index ? '#ffffff' : '#f7941d'}
+                  handleTap={(rating)=>rateServiceAPI(rating)}/>
               ))}
             </View> 
             

@@ -17,4 +17,12 @@ export default StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
     },
+    modal: {
+        height: "50%",
+        backgroundColor: "#fff",
+        margin: 6,
+        marginTop: 80,
+        elevation: 60,
+        borderRadius: 5,
+    },
 });

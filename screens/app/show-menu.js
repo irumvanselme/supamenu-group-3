@@ -11,7 +11,6 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import MyMenu from "../../components/MyMenu";
 import react from "react";
-import { useEffect } from "react/cjs/react.production.min";
 import { getToken } from "../../utils/token";
 
 import axios from "axios";
@@ -32,7 +31,7 @@ export default function ShowMenuScreen({ navigation, route }) {
                     },
                 }
             );
-
+            
             setItems(data);
         })();
     }, []);
@@ -98,7 +97,7 @@ export default function ShowMenuScreen({ navigation, route }) {
                 <Text style={styles.text}>Menu</Text>
             </View>
 
-            <FlatList
+            {items.length !== 0 &&<FlatList
                 data={items}
                 renderItem={({ item }) => (
                     <MyMenu
@@ -108,14 +107,13 @@ export default function ShowMenuScreen({ navigation, route }) {
                         name={item.category.name}
                     />
                 )}
-            />
+            />}
 
-            {items.length == 0 && (
+            {items.length === 0 && (
                 <View>
                     <Text
-                        style={{
-                            color: "white",
-                        }}
+                        style={
+                            { color: "white", fontWeight: "bold", height: 300 }}
                     >
                         Yello Nothing here
                     </Text>
