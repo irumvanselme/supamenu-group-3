@@ -73,6 +73,7 @@ export function SignInForm(props) {
             <View style={styles.inputStyle}>
                 <AntDesign name="lock" size={24} color="gray" />
                 <TextInput
+                    secureTextEntry
                     placeholder="Password"
                     value={values.password}
                     onChangeText={handleChange("password")}
